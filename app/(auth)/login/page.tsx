@@ -1,12 +1,13 @@
-import { LoginButton } from "./login-button";
+import { LoginForm } from "@/features/auth/components/login-form";
 
 function LoginPage() {
   console.log("loginPage server side");
 
   return (
-    <div className="space-y-2.5 overflow-hidden">
-      <h1 className="text-2xl">Login Page</h1>
-      <LoginButton />
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <LoginForm />
+      </div>
     </div>
   );
 }
