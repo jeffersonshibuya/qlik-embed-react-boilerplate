@@ -24,9 +24,9 @@ export async function GET(req: NextRequest) {
         },
         body: new URLSearchParams({
           grant_type: "authorization_code",
-          client_id: process.env.OAUTH_CLIENT_ID!,
+          client_id: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID!,
           client_secret: process.env.OAUTH_CLIENT_SECRET!,
-          redirect_uri: `${process.env.HOST_URL}/api/auth/login-callback`,
+          redirect_uri: `${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login-callback`,
           code_verifier: codeVerifier || "",
           code,
         }).toString(),

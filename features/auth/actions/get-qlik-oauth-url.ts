@@ -29,8 +29,8 @@ export const getQlikOAuthURL = async () => {
 
   const params = new URLSearchParams({
     response_type: "code",
-    client_id: process.env.OAUTH_CLIENT_ID!,
-    redirect_uri: `${process.env.HOST_URL}/api/auth/login-callback`,
+    client_id: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID!,
+    redirect_uri: `${process.env.NEXT_PUBLIC_HOST_URL}/api/auth/login-callback`,
     scope: "user_default offline_access",
     code_challenge: codeChallenge,
     code_challenge_method: "S256",

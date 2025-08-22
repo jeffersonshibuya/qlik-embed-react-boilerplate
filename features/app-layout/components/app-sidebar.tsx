@@ -37,6 +37,11 @@ const data = {
       url: "/charts",
       icon: IconListDetails,
     },
+    {
+      title: "Qlik Data",
+      url: "/qlik-data",
+      icon: IconListDetails,
+    },
   ],
   navSecondary: [
     {

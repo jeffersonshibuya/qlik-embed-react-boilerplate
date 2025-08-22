@@ -3,13 +3,14 @@ import { Wrapper } from "./wrapper";
 import { AppSidebar } from "@/features/app-layout/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/features/app-layout/components/site-header";
+import { QlikInitializer } from "@/components/qlik-initializer";
 
 export const metadata: Metadata = {
   title: "Qlik Embed - React - Dashboard",
   description: "",
 };
 
-export default function DahsboardLayout({
+export default async function DahsboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function DahsboardLayout({
   return (
     <html lang="en">
       <body>
+        <QlikInitializer />
         <SidebarProvider
           style={
             {

@@ -2,6 +2,7 @@
 "use client";
 
 import { getAccessToken } from "@/features/auth/actions/get-access-token";
+import { useQlikStore } from "@/hooks/qlik-store";
 import { useEffect, useState } from "react";
 
 interface WrapperProps {
@@ -9,6 +10,7 @@ interface WrapperProps {
 }
 
 export const Wrapper = ({ children }: WrapperProps) => {
+  const { setQDoc } = useQlikStore();
   const [QlikProvider, setQlikProvider] =
     useState<null | React.ComponentType<any>>(null);
 
@@ -17,7 +19,15 @@ export const Wrapper = ({ children }: WrapperProps) => {
     import("@qlik/embed-react").then((mod) => {
       setQlikProvider(() => mod.QlikEmbedConfig.Provider);
     });
-  }, []);
+
+    import("@qlik/api/qix").then(async (mod) => {
+      const session = mod.openAppSession({
+        appId: "5a004e8c-8e42-473a-a4be-9688b5618f52",
+      });
+      const doc = await session.getDoc();
+      setQDoc(doc);
+    });
+  }, [setQDoc]);
 
   if (!QlikProvider) return null; // or show a loading spinner
 
