@@ -16,9 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
 import { DataTablePagination } from "@/components/data-pagination";
-import { useSearchParams } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -29,30 +27,12 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const searchParams = useSearchParams();
-
-  const [pageIndex, setPageIndex] = useState(searchParams.get("page") || "1");
-  const [pageSize, setPageSize] = useState(
-    Number(searchParams.get("pageSize") || "10")
-  );
-
   const table = useReactTable({
     data,
     columns,
     manualPagination: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: {
-      pagination: { pageIndex, pageSize },
-    },
-    onPaginationChange: (updater) => {
-      const newState =
-        typeof updater === "function"
-          ? updater({ pageIndex, pageSize })
-          : updater;
-      setPageIndex(newState.pageIndex);
-      setPageSize(newState.pageSize);
-    },
   });
 
   return (

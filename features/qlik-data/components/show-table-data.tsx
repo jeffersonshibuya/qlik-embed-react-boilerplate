@@ -37,7 +37,9 @@ export const ShowTableData = () => {
             scheduledGroup: row["SCHD GRP"],
             status: row["WO Status"],
             statusDate:
-              row["Status Date"] === "-" ? null : new Date(row["Status Date"]),
+              row["Status Date"] === "-"
+                ? null
+                : new Date(row["Status Date"]).toISOString(),
             type: row["WO Type"],
             workGroup: row["Wrk Grp"],
           })) || [],
