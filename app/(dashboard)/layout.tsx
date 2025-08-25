@@ -4,6 +4,7 @@ import { AppSidebar } from "@/features/app-layout/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/features/app-layout/components/site-header";
 import { QlikInitializer } from "@/components/qlik-initializer";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   title: "Qlik Embed - React - Dashboard",
@@ -30,9 +31,11 @@ export default async function DahsboardLayout({
           <AppSidebar variant="inset" />
           <SidebarInset>
             <SiteHeader />
-            <div className="flex flex-1 flex-col p-4">
-              <Wrapper>{children}</Wrapper>
-            </div>
+            <NuqsAdapter>
+              <div className="flex flex-1 flex-col p-4">
+                <Wrapper>{children}</Wrapper>
+              </div>
+            </NuqsAdapter>
           </SidebarInset>
         </SidebarProvider>
       </body>

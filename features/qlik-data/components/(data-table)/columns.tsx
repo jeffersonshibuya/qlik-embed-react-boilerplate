@@ -35,6 +35,5 @@ export const columns: ColumnDef<QlikDataTableType>[] = [
   {
     accessorKey: "statusDate",
     header: "Status Date",
-    cell: ({ row }) => <div>{JSON.stringify(row.original.statusDate)}</div>,
   },
 ];

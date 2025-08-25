@@ -4,7 +4,6 @@
 import React, { useEffect, useRef, useState, type ReactElement } from "react";
 import { type QlikEmbedRefApi } from "@qlik/embed-react";
 import { Spinner } from "@/components/spinner";
-
 interface QlikWrapperProps {
   children: ReactElement<{ ref?: any }>; // user passes a QlikEmbed component
 }
@@ -35,13 +34,19 @@ export function QlikWrapper({ children }: QlikWrapperProps) {
     : null;
 
   return (
-    <div ref={containerRef} className={`relative h-full w-full`}>
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
-          <Spinner size={"large"} borderSize={"medium"} borderColor={"green"} />
-        </div>
-      )}
-      {childWithRef}
-    </div>
+    <>
+      <div ref={containerRef} className={`relative h-full w-full`}>
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+            <Spinner
+              size={"large"}
+              borderSize={"medium"}
+              borderColor={"green"}
+            />
+          </div>
+        )}
+        {childWithRef}
+      </div>
+    </>
   );
 }

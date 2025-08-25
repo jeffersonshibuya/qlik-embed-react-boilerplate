@@ -12,7 +12,7 @@ export async function fetchTableRowsPage<T>({
   qDoc,
   tableObjectId,
   page = 1,
-  pageSize = 100,
+  pageSize = 10,
 }: fetchTableRowPageProps) {
   const appObject = await qDoc.getObject(tableObjectId);
   const layout = await appObject.getLayout();

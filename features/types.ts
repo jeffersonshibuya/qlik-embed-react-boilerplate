@@ -7,7 +7,7 @@ export type QlikDataTableType = {
   workGroup: string;
   polSub: string;
   status: string;
-  statusDate: Date | null;
+  statusDate: string | null;
 };
 
 export type QlikDataTableResponseType = {
