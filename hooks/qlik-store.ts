@@ -20,7 +20,7 @@ export const useQlikStore = create<QlikState>((set) => ({
       const session = openAppSession({
         appId: "5a004e8c-8e42-473a-a4be-9688b5618f52",
       });
-      const doc = await session.getDoc();
+      await session.getDoc();
       // set({ qDoc: doc });
       console.log("Qlik session re-established");
     } catch (err) {

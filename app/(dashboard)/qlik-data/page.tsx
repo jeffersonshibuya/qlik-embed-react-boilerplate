@@ -1,10 +1,12 @@
 import UsersTable from "@/features/qlik-data/components/list";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { AppInfo } from "@/features/qlik-data/components/app-info";
 
 const QlikDataPage = async () => {
   return (
     <div>
+      <AppInfo />
       <div>
         <Suspense
           fallback={
@@ -27,7 +29,6 @@ const QlikDataPage = async () => {
           <UsersTable />
         </Suspense>
       </div>
-      <div>{/* <ShowTableData /> */}</div>
     </div>
   );
 };

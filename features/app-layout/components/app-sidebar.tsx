@@ -38,8 +38,18 @@ const data = {
       icon: IconListDetails,
     },
     {
+      title: "Sheet",
+      url: "/sheet",
+      icon: IconListDetails,
+    },
+    {
       title: "Qlik Data",
       url: "/qlik-data",
+      icon: IconListDetails,
+    },
+    {
+      title: "List Apps",
+      url: "/list-apps",
       icon: IconListDetails,
     },
   ],
