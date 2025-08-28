@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { create } from "zustand";
 
 interface QlikState {
   appId: string | null;
-  setAppId: (doc: any) => void;
+  appName: string | null;
+  setAppInfo: (appId: string, appName: string) => void;
 }
 
 export const useAppStore = create<QlikState>((set) => ({
   appId: null,
-  setAppId: (appId: string) => set({ appId: appId }),
+  appName: null,
+  setAppInfo: (appId: string, appName: string) => set({ appId, appName }),
 }));

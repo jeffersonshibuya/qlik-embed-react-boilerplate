@@ -1,3 +1,5 @@
+"use server";
+
 import { getAccessToken } from "@/features/auth/actions/get-access-token";
 
 export type QLikAppsResponseAttributes = {
@@ -8,6 +10,7 @@ export type QLikAppsResponseAttributes = {
   createdDate: string;
   lastReloadTime: string;
   modifiedDate: string;
+  usage: string;
 };
 
 export type QlikAppsResponse = {

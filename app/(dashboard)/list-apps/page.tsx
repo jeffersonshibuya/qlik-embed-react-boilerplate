@@ -7,7 +7,7 @@ const ListAppsPage = async () => {
   return (
     <div>
       <div className="flex flex-1">
-        <AppsList apps={apps || []} />
+        <AppsList apps={apps} />
       </div>
     </div>
   );

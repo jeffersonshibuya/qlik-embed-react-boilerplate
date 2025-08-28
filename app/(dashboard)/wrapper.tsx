@@ -3,6 +3,7 @@
 
 import { getAccessToken } from "@/features/auth/actions/get-access-token";
 import { useQlikStore } from "@/hooks/qlik-store";
+import { useAppStore } from "@/hooks/use-app";
 import { useEffect, useState } from "react";
 
 interface WrapperProps {
@@ -11,6 +12,7 @@ interface WrapperProps {
 
 export const Wrapper = ({ children }: WrapperProps) => {
   const { setQDoc } = useQlikStore();
+  const setAppInfo = useAppStore((s) => s.setAppInfo);
   const [QlikProvider, setQlikProvider] =
     useState<null | React.ComponentType<any>>(null);
 
@@ -25,9 +27,14 @@ export const Wrapper = ({ children }: WrapperProps) => {
         appId: "5a004e8c-8e42-473a-a4be-9688b5618f52",
       });
       const doc = await session.getDoc();
+      const appProps = await doc.getAppProperties();
       setQDoc(doc);
+      setAppInfo(
+        "5a004e8c-8e42-473a-a4be-9688b5618f52",
+        appProps.qTitle || "Default App"
+      );
     });
-  }, [setQDoc]);
+  }, [setAppInfo, setQDoc]);
 
   if (!QlikProvider) return null; // or show a loading spinner
 

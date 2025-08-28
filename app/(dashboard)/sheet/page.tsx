@@ -3,18 +3,19 @@
 
 import { QlikWrapper } from "@/features/charts/components/qlik-embed-wrapper";
 import { QlikEmbed } from "@qlik/embed-react";
-import config from "@/lib/qlik-embed-config.json";
 import { useQlikStore } from "@/hooks/qlik-store";
 import { useEffect, useState } from "react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
 import { CircleCheck, Palette, Table } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAppStore } from "@/hooks/use-app";
 
 const SheetPage = () => {
   const qDoc = useQlikStore((s) => s.qDoc);
+  const appId = useAppStore((s) => s.appId);
   const [sheets, setSheets] = useState<{ id: string; title: string }[]>([]);
-  const [sheetSelected, setSheetSelected] = useState<string>();
+  const [sheetSelected, setSheetSelected] = useState<string | null>(null);
   const [theme, setTheme] = useState("Classic");
   const [enableSelect, setEnableSelect] = useState(false);
 
@@ -37,18 +38,21 @@ const SheetPage = () => {
       setSheets(sheetList);
     }
 
+    setSheetSelected(null);
+
     if (qDoc) {
+      console.log("changed qDoc");
       fetchAppInfo();
     }
   }, [qDoc]);
 
   return (
     <div>
-      <div className="flex items-center justify-between mt-2 mb-5 py-3">
+      <div className="flex items-start justify-between gap-8 mt-2 mb-5 py-3 divide-x space-x-2 divide-gray-300">
         <RadioGroup.Root
-          defaultValue={sheets[0]?.id}
+          value={sheetSelected}
           onValueChange={(value) => setSheetSelected(value)}
-          className="max-w-2xl w-full grid grid-cols-3 gap-4"
+          className="max-w-full w-full grid grid-cols-5 gap-4 pr-3"
         >
           {sheets.map((sheet) => (
             <RadioGroup.Item
@@ -99,15 +103,15 @@ const SheetPage = () => {
           </div>
         </div>
       </div>
-      {sheetSelected && (
+      {sheetSelected && appId && (
         <div className="h-[73vh] w-full border overflow-auto">
-          <QlikEmbed ui="analytics/selections" {...config} />
+          <QlikEmbed ui="analytics/selections" appId={appId} />
           <div className="h-full w-full">
             <QlikWrapper>
               <QlikEmbed
                 ui="analytics/sheet"
                 objectId={sheetSelected!}
-                {...config}
+                appId={appId}
                 context={{ interactions: { active: enableSelect }, theme }}
               />
             </QlikWrapper>

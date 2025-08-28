@@ -10,7 +10,6 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 
-import { NavDocuments } from "./nav/nav-documents";
 import { NavMain } from "./nav/nav-main";
 import { NavSecondary } from "./nav/nav-secondary";
 import { NavUser } from "./nav/nav-user";
@@ -24,6 +23,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { NavForm } from "./nav/nav-form";
 
 const data = {
   navMain: [
@@ -65,10 +65,17 @@ const data = {
       icon: IconHelp,
     },
   ],
+  navForm: [
+    {
+      title: "Tasks",
+      url: "/tasks",
+      icon: IconListDetails,
+    },
+  ],
   documents: [
     {
-      name: "Data Library",
-      url: "#",
+      name: "Form Integration",
+      url: "/form",
       icon: IconDatabase,
     },
   ],
@@ -94,7 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavForm items={data.navForm} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

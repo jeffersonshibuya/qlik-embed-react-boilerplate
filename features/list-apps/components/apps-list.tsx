@@ -15,7 +15,7 @@ import { Edit } from "lucide-react";
 import { ShowSheet } from "./show-sheet";
 
 export const AppsList = ({ apps }: { apps: QLikAppsResponseAttributes[] }) => {
-  const { setAppId, appId } = useAppStore();
+  const { appId } = useAppStore();
 
   return (
     <div className="flex flex-col divide-x-2 space-x-3 flex-1">
@@ -43,7 +43,7 @@ export const AppsList = ({ apps }: { apps: QLikAppsResponseAttributes[] }) => {
                   <Edit
                     size={18}
                     className="cursor-pointer"
-                    onClick={() => setAppId(app.id)}
+                    // onClick={() => setAppId(app.id)}
                   />
                 </TableCell>
                 <TableCell className="pl-4">{app.id}</TableCell>
