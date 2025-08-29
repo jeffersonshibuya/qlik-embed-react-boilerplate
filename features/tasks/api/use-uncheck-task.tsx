@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "sonner";
-import { checkTask } from "../query/check-task";
 import { uncheckTask } from "../query/uncheck-task";
 
 type RequestType = {

@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState, type ReactElement } from "react";
 import { type QlikEmbedRefApi } from "@qlik/embed-react";
 import { Spinner } from "@/components/spinner";
 interface QlikWrapperProps {
-  children: ReactElement<{ ref?: any }>; // user passes a QlikEmbed component
+  children: ReactElement<{ ref?: any }>;
 }
 
 export function QlikWrapper({ children }: QlikWrapperProps) {
