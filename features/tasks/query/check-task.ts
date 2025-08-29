@@ -9,6 +9,7 @@ export const checkTask = async (taskId: string) => {
     .update(tasks)
     .set({
       completedAt: new Date().toISOString(),
+      updatedAt: new Date(),
     })
     .where(eq(tasks.id, taskId));
 };

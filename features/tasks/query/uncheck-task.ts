@@ -9,6 +9,7 @@ export const uncheckTask = async (taskId: string) => {
     .update(tasks)
     .set({
       completedAt: null,
+      updatedAt: new Date(),
     })
     .where(eq(tasks.id, taskId));
 };

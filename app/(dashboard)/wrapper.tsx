@@ -66,10 +66,9 @@ export const Wrapper = ({ children }: WrapperProps) => {
           console.warn("Session suspended. Attempting resume...");
           try {
             await session.resume();
-            console.log("✅ Session resumed");
           } catch {
             console.warn("Resume failed, re-initializing session...");
-            await initSession(); // re-init if resume fails
+            await initSession();
           }
         } else if (event.eventType === "closed") {
           console.warn("Session closed. Re-initializing...");

@@ -2,11 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  insertTasksSchema,
-  InsertTaskValues,
-  ResponseTaskValues,
-} from "../types";
+import { insertTasksSchema, InsertTaskValues } from "../types";
 import {
   Form,
   FormControl,
@@ -18,21 +14,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createTask } from "../query/create-task";
 import { useEffect, useState } from "react";
 import { Doc, openAppSession } from "@qlik/api/qix";
 import { TasksList } from "./tasks-list";
-import { getTasks } from "../query/get-tasks";
-import { checkTask } from "../query/check-task";
-import { deleteTask } from "../query/delete-task";
-import { uncheckTask } from "../query/uncheck-task";
 import { toast } from "sonner";
+import { useGetTasks } from "../api/use-get-tasks";
+import { useCreateTask } from "../api/use-create-task";
+import { useCheckTask } from "../api/use-check-task";
+import { useUncheckTask } from "../api/use-uncheck-task";
+import { useDeleteTask } from "../api/use-delete-task";
 
 export const TaskForm = () => {
-  const [loading, setLoading] = useState(false);
+  const tasksQuery = useGetTasks();
+  const createTaskMutation = useCreateTask();
+  const checkTaskMutation = useCheckTask();
+  const uncheckTaskMutation = useUncheckTask();
+  const taskDeleteMutation = useDeleteTask();
+
+  const tasks = tasksQuery.data || [];
+
   const [qDoc, setQDoc] = useState<Doc>();
-  const [loadingTasks, setLoadingTasks] = useState(false);
-  const [tasks, setTasks] = useState<ResponseTaskValues[]>([]);
   const [appReloading, setAppReloading] = useState(false);
 
   const form = useForm<InsertTaskValues>({
@@ -43,37 +44,25 @@ export const TaskForm = () => {
     },
   });
 
-  async function fetchTasks() {
-    setLoadingTasks(true);
-    const tasksList = await getTasks();
-    setTasks(tasksList);
-    setLoadingTasks(false);
-  }
-
   async function onSubmit(values: InsertTaskValues) {
-    setLoading(true);
-    await createTask(values);
+    await createTaskMutation.mutateAsync(values);
     form.reset({
       name: "",
     });
-    setLoading(false);
-    fetchTasks();
     triggerReload();
   }
 
   async function handleDelete(taskId: string) {
-    await deleteTask(taskId);
-    fetchTasks();
+    await taskDeleteMutation.mutateAsync({ taskId });
     triggerReload();
   }
 
   async function handleCheckTask(taskId: string) {
     if (tasks.filter((task) => task.id === taskId)[0].completedAt) {
-      await uncheckTask(taskId);
+      await uncheckTaskMutation.mutateAsync({ taskId });
     } else {
-      await checkTask(taskId);
+      await checkTaskMutation.mutateAsync({ taskId });
     }
-    fetchTasks();
     triggerReload();
   }
 
@@ -107,7 +96,6 @@ export const TaskForm = () => {
 
   useEffect(() => {
     getDoc();
-    fetchTasks();
   }, []);
 
   return (
@@ -133,17 +121,17 @@ export const TaskForm = () => {
               <Button
                 type="button"
                 onClick={triggerReload}
-                disabled={appReloading || loading}
+                disabled={appReloading || createTaskMutation.isPending}
                 className="bg-indigo-700 text-white"
               >
                 {appReloading ? "App Reloading please wait..." : "Reload App"}
               </Button>
               <Button
-                disabled={loading}
+                disabled={createTaskMutation.isPending}
                 type="submit"
                 className="w-[100px] cursor-pointer"
               >
-                {loading ? "Saving task..." : "Save Task"}
+                {createTaskMutation.isPending ? "Saving task..." : "Save Task"}
               </Button>
             </div>
           </form>
@@ -151,7 +139,7 @@ export const TaskForm = () => {
       </div>
       <TasksList
         tasks={tasks}
-        loading={loadingTasks}
+        loading={tasksQuery.isLoading}
         onCheck={handleCheckTask}
         onDelete={handleDelete}
       />
