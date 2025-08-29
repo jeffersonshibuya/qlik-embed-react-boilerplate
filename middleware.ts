@@ -28,7 +28,7 @@ export function middleware(request: NextRequest) {
     const currentTime = Date.now() / 1000;
 
     if (!decodedToken.exp || decodedToken.exp < currentTime) {
-      console.log("token expired");
+      console.warn("token expired");
       return NextResponse.redirect(new URL("/login", request.url));
     }
 

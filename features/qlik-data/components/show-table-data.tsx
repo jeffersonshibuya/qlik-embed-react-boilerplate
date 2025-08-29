@@ -47,7 +47,6 @@ export const ShowTableData = () => {
     }
 
     if (qDoc) {
-      console.log("fetch data", qDoc);
       fetchData();
     }
   }, [qDoc]);

@@ -1,0 +1,1 @@
+ALTER TABLE "tasks" RENAME COLUMN "isDelete" TO "is_deleted";

@@ -5,7 +5,7 @@ import { QlikEmbed } from "@qlik/embed-react";
 
 export const TasksTable = () => {
   return (
-    <div className="h-[60vh]">
+    <div className="h-[45vh]">
       <QlikWrapper>
         <QlikEmbed
           ui="analytics/sheet"

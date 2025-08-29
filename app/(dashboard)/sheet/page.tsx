@@ -41,7 +41,6 @@ const SheetPage = () => {
     setSheetSelected(null);
 
     if (qDoc) {
-      console.log("changed qDoc");
       fetchAppInfo();
     }
   }, [qDoc]);

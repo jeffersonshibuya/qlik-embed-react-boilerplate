@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  IconCreditCard,
   IconDotsVertical,
   IconLogout,
-  IconNotification,
   IconUserCircle,
 } from "@tabler/icons-react";
 
@@ -25,9 +23,12 @@ import {
 } from "@/components/ui/sidebar";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "@/features/auth/actions/user";
+import { useOpenUserInfo } from "@/features/user/hooks/use-open-user-info";
+import { logOut } from "@/features/auth/actions/log-out";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
+  const openUserInfoModal = useOpenUserInfo((s) => s.onOpen);
   const [user, setUser] = useState<{ name: string; email: string } | null>();
 
   useEffect(() => {
@@ -38,6 +39,10 @@ export function NavUser() {
 
     getUser();
   }, []);
+
+  async function handleLogout() {
+    await logOut();
+  }
 
   return (
     <SidebarMenu>
@@ -77,13 +82,13 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={openUserInfoModal}>
                 <IconUserCircle />
                 User Info
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

@@ -15,6 +15,34 @@
       "when": 1756321018770,
       "tag": "0001_steep_kylun",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756388898047,
+      "tag": "0002_equal_anita_blake",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756391472853,
+      "tag": "0003_light_sabra",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1756392315473,
+      "tag": "0004_nappy_tag",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1756392365710,
+      "tag": "0005_sloppy_tarot",
+      "breakpoints": true
     }
   ]
 }

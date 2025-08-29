@@ -29,10 +29,3 @@ export const getUserInfo = async () => {
     email: userJson.email,
   };
 };
-
-export const logoutUser = async () => {
-  const cookiesStore = await cookies();
-  cookiesStore.delete("ipc_inTake_access_token");
-
-  redirect("/login");
-};
