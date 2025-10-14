@@ -11,11 +11,6 @@ export function middleware(request: NextRequest) {
   const access_token = request.cookies.get("ipc_inTake_access_token");
 
   try {
-    // Bypass if the URL has a static asset extension
-    // if (staticExtensions.some((ext) => path.endsWith(ext))) {
-    //   return NextResponse.next();
-    // }
-
     if (isPublicRoute.includes(path)) {
       return NextResponse.next();
     }

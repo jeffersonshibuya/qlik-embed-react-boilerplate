@@ -42,15 +42,15 @@ const THROTTLE_MS = 50;
 
 interface UseDataTableProps<TData>
   extends Omit<
-      TableOptions<TData>,
-      | "state"
-      | "pageCount"
-      | "getCoreRowModel"
-      | "manualFiltering"
-      | "manualPagination"
-      | "manualSorting"
-    >,
-    Required<Pick<TableOptions<TData>, "pageCount">> {
+    TableOptions<TData>,
+    | "state"
+    | "pageCount"
+    | "getCoreRowModel"
+    | "manualFiltering"
+    | "manualPagination"
+    | "manualSorting"
+  >,
+  Required<Pick<TableOptions<TData>, "pageCount">> {
   initialState?: Omit<Partial<TableState>, "sorting"> & {
     sorting?: ExtendedColumnSort<TData>[];
   };
@@ -209,8 +209,8 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
           const processedValue = Array.isArray(value)
             ? value
             : typeof value === "string" && /[^a-zA-Z0-9]/.test(value)
-            ? value.split(/[^a-zA-Z0-9]+/).filter(Boolean)
-            : [value];
+              ? value.split(/[^a-zA-Z0-9]+/).filter(Boolean)
+              : [value];
 
           filters.push({
             id: key,
@@ -228,7 +228,17 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 
   const onColumnFiltersChange = React.useCallback(
     (updaterOrValue: Updater<ColumnFiltersState>) => {
-      if (enableAdvancedFilter) return;
+      if (enableAdvancedFilter) {
+        // For advanced filter, we'll handle this through the parent component
+        setColumnFilters((prev) => {
+          const next =
+            typeof updaterOrValue === "function"
+              ? updaterOrValue(prev)
+              : updaterOrValue;
+          return next;
+        });
+        return;
+      }
 
       setColumnFilters((prev) => {
         const next =

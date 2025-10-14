@@ -87,7 +87,7 @@ export const CustomChart = () => {
         ))}
       </div>
 
-      <div className="h-full p-1">
+      <div className="h-full p-1 min-h-[300px]">
         <QlikWrapper>
           <QlikEmbed
             ui="analytics/chart"

@@ -24,31 +24,6 @@ export const Wrapper = ({ children }: WrapperProps) => {
   const [QlikProvider, setQlikProvider] =
     useState<null | React.ComponentType<any>>(null);
 
-  // useEffect(() => {
-  //   // Dynamically import to avoid SSR issues
-  //   import("@qlik/embed-react").then((mod) => {
-  //     setQlikProvider(() => mod.QlikEmbedConfig.Provider);
-  //   });
-
-  //   import("@qlik/api/qix").then(async (mod) => {
-  //     const session = mod.openAppSession({
-  //       appId: "5a004e8c-8e42-473a-a4be-9688b5618f52",
-  //     });
-  //     const doc = await session.getDoc();
-  //     session.onWebSocketEvent((event) => {
-  //       if (event.eventType === "suspended") {
-  //         console.log("event suspended");
-  //       }
-  //     });
-  //     const appProps = await doc.getAppProperties();
-  //     setQDoc(doc);
-  //     setAppInfo(
-  //       "5a004e8c-8e42-473a-a4be-9688b5618f52",
-  //       appProps.qTitle || "Default App"
-  //     );
-  //   });
-  // }, [setAppInfo, setQDoc]);
-
   useEffect(() => {
     let session: any;
 

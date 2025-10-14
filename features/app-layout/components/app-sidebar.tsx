@@ -43,13 +43,13 @@ const data = {
       icon: IconListDetails,
     },
     {
-      title: "Qlik Data",
-      url: "/qlik-data",
+      title: "Control Actions",
+      url: "/control-actions",
       icon: IconListDetails,
     },
     {
-      title: "List Apps",
-      url: "/list-apps",
+      title: "Multiple Apps",
+      url: "/multiple-view",
       icon: IconListDetails,
     },
   ],

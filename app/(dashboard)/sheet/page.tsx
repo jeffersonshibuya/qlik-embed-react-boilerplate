@@ -29,10 +29,12 @@ const SheetPage = () => {
         qData: { title: "/qMetaDef/title" },
       });
 
-      const sheetList = sheets.map((sheet: any) => ({
-        id: sheet.qInfo.qId,
-        title: sheet.qMeta.title,
-      }));
+      const sheetList = sheets
+        .filter((sheet: any) => sheet.qMeta.published === true)
+        .map((sheet: any) => ({
+          id: sheet.qInfo.qId,
+          title: sheet.qMeta.title,
+        }));
 
       setSheetSelected(sheetList[0]?.id);
       setSheets(sheetList);

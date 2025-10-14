@@ -18,7 +18,7 @@ export function QlikWrapper({ children }: QlikWrapperProps) {
 
     const observer = new MutationObserver(() => {
       if (chartRef.current) {
-        setLoading(false); // chart / object loaded
+        setLoading(false);
         observer.disconnect();
       }
     });
