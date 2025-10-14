@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchTableRowsPage } from "@/features/qix/fetch-table-rows-page";
 import { QlikDataTableResponseType, QlikDataTableType } from "@/features/types";
 import { format } from "date-fns";
@@ -90,7 +91,7 @@ export async function getQlikData(params: GetQlikDataParams): Promise<QlikDataRe
     const qlikSortBy = filterParams.sortBy ? sortFieldMap[filterParams.sortBy] || filterParams.sortBy : undefined;
 
     // Fetch data from Qlik with filters and sorting
-    const { count, rows, totalRows } = await fetchTableRowsPage<QlikDataTableResponseType[]>({
+    const { rows, totalRows } = await fetchTableRowsPage<QlikDataTableResponseType[]>({
       qDoc,
       tableObjectId: "QyKt",
       page: filterParams.page || 1,

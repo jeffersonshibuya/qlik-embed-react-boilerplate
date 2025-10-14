@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useDataTable } from "@/hooks/use-data-table";
 import { useQlikDataTable } from "@/hooks/use-qlik-data-table";
 import { DataTable } from "./data-table";
@@ -32,10 +31,6 @@ export function QlikDataTable<TData>({
     totalPages,
     isLoading,
     error,
-    queryStates,
-    updateFilters,
-    updateSorting,
-    filterParams,
     sortParams,
   } = useQlikDataTable({
     enableAdvancedFilter,

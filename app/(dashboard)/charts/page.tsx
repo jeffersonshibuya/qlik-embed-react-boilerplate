@@ -1,6 +1,5 @@
 "use client"
 import { Checkbox } from "@/components/ui/checkbox";
-import { Toggle } from "@/components/ui/toggle";
 import { CustomChart } from "@/features/charts/components/custom-chart";
 import { KpiComponent } from "@/features/charts/components/kpi";
 import { TableComponent } from "@/features/charts/components/table-component";
@@ -22,7 +21,6 @@ const qlikObjects = [
 ];
 
 const ChartsPage = () => {
-  const [hidden, setHidden] = useState(false)
   const [visibleObjects, setVisibleObjects] = useState<string[]>(qlikObjects.map(o => o.id));
 
   function toggleObject(id: string) {

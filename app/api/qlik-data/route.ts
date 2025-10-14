@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch all data from Qlik (you might want to implement server-side filtering in Qlik)
-    const { count, rows, totalRows } = await fetchTableRowsPage<QlikDataTableResponseType[]>({
+    const { rows } = await fetchTableRowsPage<QlikDataTableResponseType[]>({
       qDoc,
       tableObjectId: "QyKt",
       page: 1,

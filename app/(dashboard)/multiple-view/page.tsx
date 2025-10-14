@@ -21,8 +21,6 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const MultipeView = () => {
-  const qDoc = useQlikStore((s) => s.qDoc);
-  const appId = useAppStore((s) => s.appId);
   const [dataDisplay, setDataDisplay] = useState<{ appId: string, sheetId: string, qDoc: any }[]>([])
 
   const form = useForm<FormValues>({
