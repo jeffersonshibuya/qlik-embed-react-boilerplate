@@ -136,7 +136,7 @@ const ControlActions = () => {
             <QlikEmbed
               ui="analytics/sheet"
               objectId={"7ad9a6d6-5b5a-4962-ad71-1e390d4ccf3d"}
-              appId={appId || ""}
+              appId={"5a004e8c-8e42-473a-a4be-9688b5618f52"}
               context={{ interactions: { select: !(selections.filter(selection => selection.qField === 'WORK_ORDER_NBR').length > 0) } }}
             />
           </QlikWrapper>
