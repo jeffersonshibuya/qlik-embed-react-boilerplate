@@ -24,8 +24,8 @@ export const CustomChart = () => {
     setDimensions(
       (prev) =>
         checked
-          ? [...prev, value] // add if checked
-          : prev.filter((d) => d !== value) // remove if unchecked
+          ? [...prev, value]
+          : prev.filter((d) => d !== value)
     );
   };
 

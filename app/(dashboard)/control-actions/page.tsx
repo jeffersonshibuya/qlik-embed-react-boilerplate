@@ -8,15 +8,36 @@ import { QlikWrapper } from "@/features/charts/components/qlik-embed-wrapper";
 import { QlikEmbed } from "@qlik/embed-react";
 import { Button } from "@/components/ui/button";
 import { IconTrash } from "@tabler/icons-react";
+import { toast } from "sonner";
+import { AlertTriangle, Info } from "lucide-react";
 
 const ControlActions = () => {
   const qDoc = useQlikStore((s) => s.qDoc);
-  const appId = useAppStore((s) => s.appId);
+  const { appId, appName } = useAppStore();
   const [selections, setSelections] = useState<any[]>([]);
-  const [sheetId, setSheetId] = useState("")
+  const [sheetSelected, setSheetSelected] = useState<string | null>(null);
 
   useEffect(() => {
     if (!qDoc) return;
+
+    async function fetchAppInfo() {
+      const sheets = await qDoc.getObjects({
+        qTypes: ["sheet"],
+        qIncludeSessionObjects: false,
+        qData: { title: "/qMetaDef/title" },
+      });
+
+      const sheetList = sheets
+        .filter((sheet: any) => sheet.qMeta.published === true)
+        .map((sheet: any) => ({
+          id: sheet.qInfo.qId,
+          title: sheet.qMeta.title,
+        }));
+
+      setSheetSelected(sheetList[0]?.id);
+    }
+
+    setSheetSelected(null);
 
     let sessionObject: any;
 
@@ -33,21 +54,45 @@ const ControlActions = () => {
           const layout = await sessionObject.getLayout();
           const qSelections = layout.qSelectionObject?.qSelections || [];
 
-          console.log("🔄 Current selections:", qSelections);
-
           setSelections(qSelections);
 
-          // 🌍 Detect selection on WORK_ORDER_NBR
-          const selectedWO = qSelections.find(
-            (s: any) => s.qField === "WORK_ORDER_NBR"
+
+          if (!qSelections?.length) {
+            toast.info("No current selections");
+            return;
+          }
+          toast.info(
+            <div className="text-sm space-y-1">
+              <p className="font-semibold mb-1">Selections:</p>
+              <ul className="space-y-1">
+                {qSelections.map((s: any) => (
+                  <li
+                    key={s.qField}
+                    className="flex items-center gap-2 border border-blue-200 rounded-md px-2 py-1 bg-blue-50"
+                  >
+                    <span className="font-medium text-blue-700">{s.qField}</span>:
+                    <span className="text-blue-800">{s.qSelected}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>,
+            {
+              duration: 5000,
+              position: "bottom-right",
+            }
           );
 
-          if (selectedWO) {
-            console.log("Selected WORK_ORDER_NBR:", selectedWO.qSelected);
-            setSheetId("QwJvq"); // Show the sheet
-          } else {
-            setSheetId(""); // Hide when cleared
-          }
+          // 🌍 Detect selection on WORK_ORDER_NBR
+          // const selectedWO = qSelections.find(
+          //   (s: any) => s.qField === "WORK_ORDER_NBR"
+          // );
+
+          // if (selectedWO) {
+          //   console.log("Selected WORK_ORDER_NBR:", selectedWO.qSelected);
+          //   setWoSelected(selectedWO.qSelected)
+          // } else {
+          //   setWoSelected(""); // Hide when cleared
+          // }
         };
 
         // Initial load
@@ -61,6 +106,10 @@ const ControlActions = () => {
     };
 
     createSelectionListener();
+
+    if (qDoc) {
+      fetchAppInfo();
+    }
 
     return () => {
       if (sessionObject) {
@@ -90,57 +139,85 @@ const ControlActions = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 relative">
-      <h2 className="text-lg font-semibold">Qlik Selections (App: {appId})</h2>
+    <div className="flex flex-col relative">
+      <h2 className="flex justify-between gap-1 p-1 border-b mb-4">
+        <span className="text-lg text-gray-900 font-semibold">APP: {appName}</span>
+        <span className="text-gray-600 text-sm">ID: {appId}</span>
+      </h2>
 
-      <div className="flex flex-1 items-center justify-between">
+      <div className="flex justify-between items-end gap-4 border-b pb-4 mb-6">
         {selections.length === 0 ? (
-          <p>No active selections.</p>
+          <p className="text-gray-500 italic">No active selections.</p>
         ) : (
-          <ul className="list-disc ml-6">
-            {selections.map((s) => (
-              <li key={s.qField}>
-                <strong>{s.qField}</strong>: {s.qSelected}
-                <Button
-                  onClick={() => handleClearField(s.qField)}
-                  variant={'outline'}
-                  className="text-sm text-blue-600 hover:underline ml-2"
+          <div className="flex flex-col gap-2 flex-1">
+            <p
+              className={`flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-md border 
+    ${selections.length === 3
+                  ? "text-red-600 bg-red-50 border-red-200"
+                  : "text-indigo-600 bg-indigo-50 border-indigo-200"
+                }`}
+            >
+              {selections.length === 3 ? (
+                <>
+                  <AlertTriangle className="w-4 h-4 text-red-500" />
+                  You’ve reached the maximum of 3 selections. Further selections are disabled.
+                </>
+              ) : (
+                <>
+                  <Info className="w-4 h-4 text-indigo-500" />
+                  Max of <span className="font-semibold">3</span> group selections —{" "}
+                  <span className="text-indigo-700 font-semibold">
+                    {3 - selections.length} remaining
+                  </span>
+                </>
+              )}
+            </p>
+            <div className="flex flex-row flex-wrap items-start gap-2">
+              {selections.map((s) => (
+                <div
+                  key={s.qField}
+                  className="flex items-center gap-2 border border-blue-300 bg-blue-50 text-blue-700 rounded-full px-3 py-0.5 text-sm shadow-sm"
                 >
-                  <IconTrash size={6} />
-                </Button>
-              </li>
-            ))}
-          </ul>
+                  <span className="font-medium">{s.qField}:</span>
+                  <span className="text-blue-800 bg-white px-1 py-0.5 rounded border border-blue-200">
+                    {s.qSelected}
+                  </span>
+                  <Button
+                    onClick={() => handleClearField(s.qField)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-600 hover:text-red-600 hover:bg-transparent p-1"
+                  >
+                    <IconTrash size={14} />
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+          </div>
         )}
 
-        <Button
-          onClick={handleClearAll}
-          disabled={!selections.length}
-          className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 w-fit"
-        >
-          Clear All Selections
-        </Button>
-
+        <div className="flex justify-end">
+          <Button
+            onClick={handleClearAll}
+            disabled={!selections.length}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+          >
+            Clear All Selections ({selections.length})
+          </Button>
+        </div>
       </div>
 
-      <div className="h-[73vh] w-full border overflow-auto">
+      <div className="h-[70vh] w-full border overflow-auto">
         <div className="h-full w-full">
-          {sheetId &&
+          {sheetSelected && appId && (<QlikWrapper>
             <QlikEmbed
               ui="analytics/sheet"
-              objectId={sheetId}
-              appId={appId || ""}
-              context={{ interactions: { select: false } }}
+              objectId={sheetSelected!}
+              appId={appId}
+              context={{ interactions: { select: !(selections.length >= 3) } }}
             />
-          }
-          <QlikWrapper>
-            <QlikEmbed
-              ui="analytics/sheet"
-              objectId={"7ad9a6d6-5b5a-4962-ad71-1e390d4ccf3d"}
-              appId={"5a004e8c-8e42-473a-a4be-9688b5618f52"}
-              context={{ interactions: { select: !(selections.filter(selection => selection.qField === 'WORK_ORDER_NBR').length > 0) } }}
-            />
-          </QlikWrapper>
+          </QlikWrapper>)}
         </div>
 
       </div>

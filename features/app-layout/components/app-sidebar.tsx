@@ -38,8 +38,18 @@ const data = {
       icon: IconListDetails,
     },
     {
+      title: "Chart Builder",
+      url: "/chart-builder-demo",
+      icon: IconListDetails,
+    },
+    {
       title: "Sheet",
       url: "/sheet",
+      icon: IconListDetails,
+    },
+    {
+      title: "Multiple Sheet View",
+      url: "/multiple-sheet-view",
       icon: IconListDetails,
     },
     {
