@@ -138,8 +138,14 @@ const ControlActions = () => {
     }
   };
 
+  const handleSetWorkGroup = async () => {
+    const field = await qDoc.getField('SCHEDULE_GROUP');
+    field.selectValues([{ qText: '1AOH01' }])
+  }
+
   return (
     <div className="flex flex-col relative">
+
       <h2 className="flex justify-between gap-1 p-1 border-b mb-4">
         <span className="text-lg text-gray-900 font-semibold">APP: {appName}</span>
         <span className="text-gray-600 text-sm">ID: {appId}</span>
@@ -194,10 +200,11 @@ const ControlActions = () => {
               ))}
             </div>
 
+
           </div>
         )}
 
-        <div className="flex justify-end">
+        <div className="flex justify-end flex-col gap-1">
           <Button
             onClick={handleClearAll}
             disabled={!selections.length}
@@ -205,6 +212,7 @@ const ControlActions = () => {
           >
             Clear All Selections ({selections.length})
           </Button>
+          <Button onClick={handleSetWorkGroup}>Set SCHEDULE_GROUP to 1AOH01</Button>
         </div>
       </div>
 
@@ -215,7 +223,7 @@ const ControlActions = () => {
               ui="analytics/sheet"
               objectId={sheetSelected!}
               appId={appId}
-              context={{ interactions: { select: !(selections.length >= 3) } }}
+              context={{ interactions: { select: !(selections.length > 3) } }}
             />
           </QlikWrapper>)}
         </div>
