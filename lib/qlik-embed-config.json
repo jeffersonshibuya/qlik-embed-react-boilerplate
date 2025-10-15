@@ -1,4 +1,8 @@
 {
   "appId": "5a004e8c-8e42-473a-a4be-9688b5618f52",
-  "context": { "interactions": { "select": false } }
+  "context": {
+    "interactions": {
+      "select": true
+    }
+  }
 }

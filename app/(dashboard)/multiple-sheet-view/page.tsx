@@ -39,7 +39,7 @@ const MultipleSheetView = () => {
     <div className="grid grid-cols-2 gap-6">
       {appId && (
         sheets?.map((sheet) => (
-          <div key={sheet.id} className="h-[40vh] flex-1 w-full border overflow-auto shadow">
+          <div key={sheet.id} className="h-[60vh] flex-1 w-full border overflow-auto shadow">
             <QlikEmbed ui="analytics/selections" appId={appId} />
             <div className="h-full w-full">
               <QlikWrapper>
