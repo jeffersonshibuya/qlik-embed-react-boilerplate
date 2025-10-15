@@ -2,12 +2,18 @@
 
 import * as React from "react";
 import {
+  IconAdjustmentsCog,
+  IconChartBar,
   IconDashboard,
   IconDatabase,
+  IconHammer,
   IconHelp,
   IconInnerShadowTop,
+  IconInputSearch,
   IconListDetails,
   IconSettings,
+  IconTable,
+  IconTableSpark,
 } from "@tabler/icons-react";
 
 import { NavMain } from "./nav/nav-main";
@@ -35,33 +41,38 @@ const data = {
     {
       title: "Charts",
       url: "/charts",
-      icon: IconListDetails,
+      icon: IconChartBar,
     },
     {
       title: "Chart Builder",
       url: "/chart-builder-demo",
-      icon: IconListDetails,
+      icon: IconHammer,
     },
     {
       title: "Sheet",
       url: "/sheet",
-      icon: IconListDetails,
+      icon: IconTable,
     },
     {
       title: "Multiple Sheet View",
       url: "/multiple-sheet-view",
-      icon: IconListDetails,
+      icon: IconTableSpark,
     },
     {
       title: "Control Actions",
       url: "/control-actions",
-      icon: IconListDetails,
+      icon: IconAdjustmentsCog,
     },
     {
       title: "Custom Fields",
       url: "/custom-fields",
-      icon: IconListDetails,
+      icon: IconInputSearch,
     },
+    // {
+    //   title: "Playground",
+    //   url: "/playground",
+    //   icon: IconListDetails,
+    // },
     // {
     //   title: "Multiple Apps",
     //   url: "/multiple-view",

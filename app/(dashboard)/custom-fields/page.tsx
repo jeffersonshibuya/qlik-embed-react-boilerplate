@@ -79,7 +79,6 @@ const CustomFieldsPage = () => {
                   ui="analytics/field"
                   appId={appId}
                   fieldId={field}
-                  type="measure"
                 />
               </QlikWrapper>
             </div>
