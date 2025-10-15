@@ -53,7 +53,7 @@ const ChartsPage = () => {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="grid grid-cols-3 gap-2 mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-5">
         {visibleObjects.includes("BmjZmQ") && (
           <div className="border border-slate-200 shadow rounded w-full p-4 flex flex-col h-[200px]">
             <KpiComponent objectId="BmjZmQ" />
@@ -71,7 +71,7 @@ const ChartsPage = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {visibleObjects.includes("pie") && (
           <div className="border border-slate-400 rounded w-full p-4 flex flex-col">
             <CustomChart />

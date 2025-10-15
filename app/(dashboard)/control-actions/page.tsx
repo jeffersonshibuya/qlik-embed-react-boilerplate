@@ -16,9 +16,16 @@ const ControlActions = () => {
   const { appId, appName } = useAppStore();
   const [selections, setSelections] = useState<any[]>([]);
   const [sheetSelected, setSheetSelected] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!qDoc) return;
+    let sessionObject: any;
+    setSheetSelected(null);
 
     async function fetchAppInfo() {
       const sheets = await qDoc.getObjects({
@@ -37,10 +44,6 @@ const ControlActions = () => {
       setSheetSelected(sheetList[0]?.id);
     }
 
-    setSheetSelected(null);
-
-    let sessionObject: any;
-
     const createSelectionListener = async () => {
       try {
         // 🔹 Create a session object that represents the current selection state
@@ -55,7 +58,6 @@ const ControlActions = () => {
           const qSelections = layout.qSelectionObject?.qSelections || [];
 
           setSelections(qSelections);
-
 
           if (!qSelections?.length) {
             toast.info("No current selections");
@@ -81,18 +83,6 @@ const ControlActions = () => {
               position: "bottom-right",
             }
           );
-
-          // 🌍 Detect selection on WORK_ORDER_NBR
-          // const selectedWO = qSelections.find(
-          //   (s: any) => s.qField === "WORK_ORDER_NBR"
-          // );
-
-          // if (selectedWO) {
-          //   console.log("Selected WORK_ORDER_NBR:", selectedWO.qSelected);
-          //   setWoSelected(selectedWO.qSelected)
-          // } else {
-          //   setWoSelected(""); // Hide when cleared
-          // }
         };
 
         // Initial load
@@ -138,11 +128,6 @@ const ControlActions = () => {
     }
   };
 
-  const handleSetWorkGroup = async () => {
-    const field = await qDoc.getField('SCHEDULE_GROUP');
-    field.selectValues([{ qText: '1AOH01' }])
-  }
-
   return (
     <div className="flex flex-col relative">
 
@@ -151,33 +136,11 @@ const ControlActions = () => {
         <span className="text-gray-600 text-sm">ID: {appId}</span>
       </h2>
 
-      <div className="flex justify-between items-end gap-4 border-b pb-4 mb-6">
+      <div className="flex justify-between items-start gap-4 border-b pb-4 mb-6">
         {selections.length === 0 ? (
           <p className="text-gray-500 italic">No active selections.</p>
         ) : (
           <div className="flex flex-col gap-2 flex-1">
-            <p
-              className={`flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-md border 
-    ${selections.length === 3
-                  ? "text-red-600 bg-red-50 border-red-200"
-                  : "text-indigo-600 bg-indigo-50 border-indigo-200"
-                }`}
-            >
-              {selections.length === 3 ? (
-                <>
-                  <AlertTriangle className="w-4 h-4 text-red-500" />
-                  You’ve reached the maximum of 3 selections. Further selections are disabled.
-                </>
-              ) : (
-                <>
-                  <Info className="w-4 h-4 text-indigo-500" />
-                  Max of <span className="font-semibold">3</span> group selections —{" "}
-                  <span className="text-indigo-700 font-semibold">
-                    {3 - selections.length} remaining
-                  </span>
-                </>
-              )}
-            </p>
             <div className="flex flex-row flex-wrap items-start gap-2">
               {selections.map((s) => (
                 <div
@@ -212,20 +175,20 @@ const ControlActions = () => {
           >
             Clear All Selections ({selections.length})
           </Button>
-          <Button onClick={handleSetWorkGroup}>Set SCHEDULE_GROUP to 1AOH01</Button>
         </div>
       </div>
 
       <div className="h-[70vh] w-full border overflow-auto">
         <div className="h-full w-full">
-          {sheetSelected && appId && (<QlikWrapper>
-            <QlikEmbed
-              ui="analytics/sheet"
-              objectId={sheetSelected!}
-              appId={appId}
-              context={{ interactions: { select: !(selections.length > 3) } }}
-            />
-          </QlikWrapper>)}
+          {mounted && sheetSelected && appId && (
+            <QlikWrapper>
+              <QlikEmbed
+                ui="analytics/sheet"
+                objectId={sheetSelected!}
+                appId={appId}
+              />
+            </QlikWrapper>)
+          }
         </div>
 
       </div>

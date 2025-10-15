@@ -49,32 +49,34 @@ const SheetPage = () => {
 
   return (
     <div>
-      <div className="flex items-start justify-between gap-8 mt-2 mb-5 py-3 divide-x space-x-2 divide-gray-300">
-        <RadioGroup.Root
-          value={sheetSelected}
-          onValueChange={(value) => setSheetSelected(value)}
-          className="max-w-full w-full grid grid-cols-5 gap-4 pr-3"
-        >
-          {sheets.map((sheet) => (
-            <RadioGroup.Item
-              key={sheet.id}
-              value={sheet.id}
-              className={cn(
-                "relative group ml-1 ring-[1px] ring-border rounded py-2 px-2 text-start cursor-pointer",
-                "data-[state=checked]:ring-2 data-[state=checked]:ring-blue-500"
-              )}
-            >
-              <CircleCheck className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 h-6 w-6 text-primary fill-blue-500 stroke-white group-data-[state=unchecked]:hidden" />
-              <Table className="mb-2.5 text-muted-foreground" />
-              <span className="font-semibold tracking-tight">
-                {sheet.title}
-              </span>
-              <p className="text-xs">Sheet ID: {sheet.id}</p>
-            </RadioGroup.Item>
-          ))}
-        </RadioGroup.Root>
+      <div className="grid grid-cols-4 items-start justify-between gap-8 mt-2 mb-5 py-3 divide-x space-x-2 divide-gray-300">
+        <div className="col-span-4 md:col-span-3">
+          <RadioGroup.Root
+            value={sheetSelected}
+            onValueChange={(value) => setSheetSelected(value)}
+            className="w-full grid grid-cols-2 md:grid-cols-5 gap-4 pr-3"
+          >
+            {sheets.map((sheet) => (
+              <RadioGroup.Item
+                key={sheet.id}
+                value={sheet.id}
+                className={cn(
+                  "relative group ml-1 ring-[1px] ring-border rounded py-2 px-2 text-start cursor-pointer",
+                  "data-[state=checked]:ring-2 data-[state=checked]:ring-blue-500"
+                )}
+              >
+                <CircleCheck className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 h-6 w-6 text-primary fill-blue-500 stroke-white group-data-[state=unchecked]:hidden" />
+                <Table className="mb-2.5 text-muted-foreground" />
+                <span className="font-semibold tracking-tight">
+                  {sheet.title}
+                </span>
+                <p className="text-xs">Sheet ID: {sheet.id}</p>
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        </div>
 
-        <div className="flex flex-col gap-2 min-w-sm">
+        <div className="md:flex flex-col col-span-1 items-end gap-2 mr-4 w-full hidden">
           <RadioGroup.Root
             defaultValue={themes[0]}
             onValueChange={(value) => setTheme(value)}
