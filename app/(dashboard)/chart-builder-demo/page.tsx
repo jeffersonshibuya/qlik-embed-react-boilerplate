@@ -19,7 +19,6 @@ import { Trash2 } from "lucide-react";
 import { useQlikStore } from "@/hooks/qlik-store";
 import { getAllFields } from "@/data/get-all-fields";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FILE } from "dns";
 
 export default function ChartBuilderDemo() {
   const appId = useAppStore((s) => s.appId);

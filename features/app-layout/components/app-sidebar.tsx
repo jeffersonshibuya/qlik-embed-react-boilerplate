@@ -58,10 +58,15 @@ const data = {
       icon: IconListDetails,
     },
     {
-      title: "Multiple Apps",
-      url: "/multiple-view",
+      title: "Custom Fields",
+      url: "/custom-fields",
       icon: IconListDetails,
     },
+    // {
+    //   title: "Multiple Apps",
+    //   url: "/multiple-view",
+    //   icon: IconListDetails,
+    // },
   ],
   navSecondary: [
     {
