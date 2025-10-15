@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useQlikStore } from "@/hooks/qlik-store";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
-import { useAppStore } from "@/hooks/use-app";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

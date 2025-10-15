@@ -9,7 +9,6 @@ import { QlikEmbed } from "@qlik/embed-react";
 import { Button } from "@/components/ui/button";
 import { IconTrash } from "@tabler/icons-react";
 import { toast } from "sonner";
-import { AlertTriangle, Info } from "lucide-react";
 
 const ControlActions = () => {
   const qDoc = useQlikStore((s) => s.qDoc);

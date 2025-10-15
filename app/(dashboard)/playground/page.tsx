@@ -67,9 +67,9 @@ export default function PlaygroundPage() {
     }
   }
 
-  function removeObject(id: string) {
-    setCreatedObjects((prev) => prev.filter((o) => o.id !== id));
-  }
+  // function removeObject(id: string) {
+  //   setCreatedObjects((prev) => prev.filter((o) => o.id !== id));
+  // }
 
   return (
     <div className="flex gap-6">

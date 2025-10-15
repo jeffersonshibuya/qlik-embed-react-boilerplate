@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { getAllFields } from "@/data/get-all-fields";
@@ -22,7 +23,6 @@ const CustomFieldsPage = () => {
   const [sheetSelected, setSheetSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    let mounted = true;
 
     async function getMasterItemsData() {
       const fieldsData = await getAllFields(qDoc) as string[]
@@ -50,10 +50,6 @@ const CustomFieldsPage = () => {
       getMasterItemsData()
       fetchAppInfo()
     }
-
-    return () => {
-      mounted = false;
-    };
 
   }, [qDoc])
 

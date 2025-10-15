@@ -6,7 +6,6 @@ import { SiteHeader } from "@/features/app-layout/components/site-header";
 import { QlikInitializer } from "@/components/qlik-initializer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ModalProvider } from "@/providers/modal-provider";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Qlik Embed - React - Dashboard",
