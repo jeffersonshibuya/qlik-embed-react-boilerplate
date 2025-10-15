@@ -27,7 +27,7 @@ export function NavForm({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Form Pages</SidebarGroupLabel>
+      <SidebarGroupLabel>Form & Builders</SidebarGroupLabel>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => {
@@ -44,7 +44,7 @@ export function NavForm({
                   className={cn(
                     "cursor-pointer hover:bg-primary/70 hover:text-primary-foreground text-slate-900 min-w-8",
                     isActive &&
-                      "bg-primary/90 text-primary-foreground  duration-200 ease-linear"
+                    "bg-primary/90 text-primary-foreground  duration-200 ease-linear"
                   )}
                 >
                   <Link href={item.url}>

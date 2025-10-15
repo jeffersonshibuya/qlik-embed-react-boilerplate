@@ -43,11 +43,7 @@ const data = {
       url: "/charts",
       icon: IconChartBar,
     },
-    {
-      title: "Chart Builder",
-      url: "/chart-builder-demo",
-      icon: IconHammer,
-    },
+
     {
       title: "Sheet",
       url: "/sheet",
@@ -62,11 +58,6 @@ const data = {
       title: "Control Actions",
       url: "/control-actions",
       icon: IconAdjustmentsCog,
-    },
-    {
-      title: "Custom Fields",
-      url: "/custom-fields",
-      icon: IconInputSearch,
     },
     // {
     //   title: "Playground",
@@ -92,6 +83,16 @@ const data = {
     },
   ],
   navForm: [
+    {
+      title: "Chart Builder",
+      url: "/chart-builder-demo",
+      icon: IconHammer,
+    },
+    {
+      title: "Custom Fields",
+      url: "/custom-fields",
+      icon: IconInputSearch,
+    },
     {
       title: "Tasks",
       url: "/tasks",
@@ -119,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <Link href="/">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">IPC inTake</span>
+                <span className="text-base font-semibold">IPC inTake & Qlik Embed</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

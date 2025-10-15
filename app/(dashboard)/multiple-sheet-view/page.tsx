@@ -28,6 +28,14 @@ const MultipleSheetView = () => {
         }));
 
       setSheets(sheetList);
+
+      const sessionObj = await qDoc.createSessionObject({
+        qInfo: { qType: "sessionChart" },
+        qHyperCubeDef: {
+          qDimensions: [{ qDef: { qFieldDefs: ["WORK_ORDER_NBR"] } }],
+          qMeasures: [{ qDef: { qDef: "Count(STATUS_DATE)" } }],
+        },
+      });
     }
 
     if (qDoc) {
@@ -38,7 +46,7 @@ const MultipleSheetView = () => {
   return (
     <div className="grid grid-cols-2 gap-6">
       {appId && (
-        sheets?.map((sheet) => (
+        sheets?.map((sheet, index) => (
           <div key={sheet.id} className="h-[60vh] flex-1 w-full border overflow-auto shadow">
             <QlikEmbed ui="analytics/selections" appId={appId} />
             <div className="h-full w-full">

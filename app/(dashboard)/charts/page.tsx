@@ -11,6 +11,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Eye } from "lucide-react";
+import { QlikEmbed } from "@qlik/embed-react";
+import { useAppStore } from "@/hooks/use-app";
 
 const qlikObjects = [
   { id: "BmjZmQ", title: "Political Sub" },
@@ -21,6 +23,7 @@ const qlikObjects = [
 ];
 
 const ChartsPage = () => {
+  const appId = useAppStore((s) => s.appId);
   const [visibleObjects, setVisibleObjects] = useState<string[]>(qlikObjects.map(o => o.id));
 
   function toggleObject(id: string) {
@@ -31,9 +34,15 @@ const ChartsPage = () => {
 
   return (
     <div>
-      <div className="my-4 flex flex-1 justify-end">
+      <div className="flex justify-between items-center mb-5">
+        <div className="p-3 flex flex-col">
+          <span className="text-lg font-semibold text-gray-900">Charts</span>
+          <span className="text-sm text-gray-600 mt-1">
+            Each card below represents a separate object embedded from the Qlik App.
+          </span>
+        </div>
         <Popover>
-          <PopoverTrigger className="flex items-center gap-2 border rounded p-1 shadow"><Eye className="size-5" /> Toggle Objects</PopoverTrigger>
+          <PopoverTrigger className="flex items-center gap-2 border rounded-lg px-2 py-2 shadow"><Eye className="size-5" /> Toggle Objects</PopoverTrigger>
           <PopoverContent className="w-[550px]">
             <div className="flex flex-col space-y-2 z-20 bg-white">
               <h2 className="text-lg font-semibold mb-3">Objects Visibility</h2>
@@ -53,6 +62,7 @@ const ChartsPage = () => {
           </PopoverContent>
         </Popover>
       </div>
+      <QlikEmbed ui="analytics/selections" appId={appId || ""} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-5">
         {visibleObjects.includes("BmjZmQ") && (
           <div className="border border-slate-200 shadow rounded w-full p-4 flex flex-col h-[200px]">
