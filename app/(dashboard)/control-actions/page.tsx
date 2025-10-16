@@ -127,11 +127,6 @@ const ControlActions = () => {
     }
   };
 
-  const handleSetWorkGroup = async () => {
-    const field = await qDoc.getField('SCHEDULE_GROUP');
-    field.selectValues([{ qText: '1AOH01' }], false, false)
-  }
-
   return (
     <div className="flex flex-col relative">
 
@@ -166,9 +161,6 @@ const ControlActions = () => {
                 </div>
               ))}
             </div>
-
-
-
           </div>
         )}
 
@@ -180,7 +172,7 @@ const ControlActions = () => {
           >
             Clear All Selections ({selections.length})
           </Button>
-          <Button onClick={handleSetWorkGroup}>Set SCHEDULE_GROUP to 1AOH01</Button>
+
         </div>
       </div>
 
