@@ -13,7 +13,6 @@ import {
 import { Eye } from "lucide-react";
 import { QlikEmbed } from "@qlik/embed-react";
 import { useAppStore } from "@/hooks/use-app";
-import { TableData } from "@/components/table-data";
 
 const qlikObjects = [
   { id: "BmjZmQ", title: "Political Sub" },

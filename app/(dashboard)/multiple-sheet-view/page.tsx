@@ -42,7 +42,7 @@ const MultipleSheetView = () => {
   }, [qDoc]);
 
   useEffect(() => {
-    setSheets([]); // clear old sheets when qDoc changes
+    setSheets([]);
   }, [qDoc]);
 
   return (
@@ -52,7 +52,7 @@ const MultipleSheetView = () => {
       </div>
       <div className="grid grid-cols-2 gap-6">
         {qDoc && appId && (
-          sheets?.map((sheet, index) => (
+          sheets?.map((sheet) => (
             <div key={sheet.id} className="h-[55vh] flex-1 w-full border rounded overflow-hidden shadow">
               <div className="h-full w-full">
                 <QlikWrapper>
